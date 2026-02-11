@@ -30,7 +30,7 @@ LOG="Install-Logs/01-Hyprland-Install-Scripts-$(date +%d-%H%M%S).log"
 # Check if running as root. If root, script will exit
 if [[ $EUID -eq 0 ]]; then
     echo "${ERROR}  This script should ${WARNING}NOT${RESET} be executed as root!! Exiting......." | tee -a "$LOG"
-    printf "\n%.0s" {1..2} 
+    printf "\n%.0s" {1..2}
     exit 1
 fi
 
@@ -43,17 +43,17 @@ fi
 
 clear
 
-printf "\n%.0s" {1..2}  
+printf "\n%.0s" {1..2}
 echo -e "\e[35m
 	╦╔═┌─┐┌─┐╦    ╦ ╦┬ ┬┌─┐┬─┐┬  ┌─┐┌┐┌┌┬┐
-	╠╩╗│ ││ │║    ╠═╣└┬┘├─┘├┬┘│  ├─┤│││ ││ 2025
+	╠╩╗│ ││ │║    ╠═╣└┬┘├─┘├┬┘│  ├─┤│││ ││ 2026
 	╩ ╩└─┘└─┘╩═╝  ╩ ╩ ┴ ┴  ┴└─┴─┘┴ ┴┘└┘─┴┘ Fedora Linux
 \e[0m"
-printf "\n%.0s" {1..1} 
+printf "\n%.0s" {1..1}
 
 # Welcome message using whiptail (for displaying information)
-whiptail --title "KooL Fedora-Hyprland (2025) Install Script" \
-    --msgbox "Welcome to KooL Fedora-Hyprland (2025) Install Script!!!\n\n\
+whiptail --title "KooL Fedora-Hyprland (2026) Install Script" \
+    --msgbox "Welcome to KooL Fedora-Hyprland (2026) Install Script!!!\n\n\
 ATTENTION: Run a full system update and Reboot first !!! (Highly Recommended)\n\n\
 NOTE: If you are installing on a VM, ensure to enable 3D acceleration else Hyprland may NOT start!" \
     15 80
@@ -138,14 +138,14 @@ check_services_running() {
     active_services=()  # Array to store active services
     for svc in "${services[@]}"; do
         if systemctl is-active --quiet "$svc"; then
-            active_services+=("$svc")  
+            active_services+=("$svc")
         fi
     done
 
     if [ ${#active_services[@]} -gt 0 ]; then
-        return 0  
+        return 0
     else
-        return 1  
+        return 1
     fi
 }
 
@@ -270,11 +270,11 @@ while true; do
     if ! whiptail --title "Confirm Your Choices" --yesno "$(printf "%s" "$confirm_message")" 25 80; then
         echo -e "\n"
         echo "❌ ${SKY_BLUE}You're not 🫵 happy${RESET}. ${YELLOW}Returning to options...${RESET}" | tee -a "$LOG"
-        continue 
+        continue
     fi
 
     echo "👌 ${OK} You confirmed your choices. Proceeding with ${SKY_BLUE}KooL 🇵🇭 Hyprland Installation...${RESET}" | tee -a "$LOG"
-    break  
+    break
 done
 
 printf "\n%.0s" {1..1}
@@ -308,7 +308,7 @@ for option in "${options[@]}"; do
             if check_services_running; then
                 active_list=$(printf "%s\n" "${active_services[@]}")
                 whiptail --title "Error" --msgbox "One of the following login services is running:\n$active_list\n\nPlease stop & disable it or DO not choose SDDM." 12 60
-                exec "$0"  
+                exec "$0"
             else
                 echo "${INFO} Installing and configuring ${SKY_BLUE}SDDM...${RESET}" | tee -a "$LOG"
                 execute_script "sddm.sh"
@@ -417,7 +417,7 @@ if rpm -q hyprland &> /dev/null || rpm -q hyprland-git &> /dev/null; then
 
         if [[ "$HYP" == "y" || "$HYP" == "yes" ]]; then
             echo "${INFO} Rebooting now..."
-            systemctl reboot 
+            systemctl reboot
             break
         elif [[ "$HYP" == "n" || "$HYP" == "no" ]]; then
             echo "👌 ${OK} You chose NOT to reboot"
